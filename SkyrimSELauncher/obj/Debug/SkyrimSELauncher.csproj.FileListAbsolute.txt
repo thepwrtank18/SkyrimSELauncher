@@ -1,0 +1,8 @@
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\obj\Debug\SkyrimSELauncher.csproj.AssemblyReference.cache
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\obj\Debug\SkyrimSELauncher.csproj.SuggestedBindingRedirects.cache
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\obj\Debug\SkyrimSELauncher.csproj.CoreCompileInputs.cache
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\bin\Debug\SkyrimSELauncher_fake.exe.config
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\bin\Debug\SkyrimSELauncher_fake.exe
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\bin\Debug\SkyrimSELauncher_fake.pdb
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\obj\Debug\SkyrimSELauncher_fake.exe
+C:\Users\Leo\source\repos\SkyrimSELauncher\SkyrimSELauncher\obj\Debug\SkyrimSELauncher_fake.pdb
