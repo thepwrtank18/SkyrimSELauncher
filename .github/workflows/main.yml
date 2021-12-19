@@ -33,4 +33,4 @@ jobs:
          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       with:
         name: SkyrimSELauncher_fake
-        path: bin\Release
+        path: D:\a\SkyrimSELauncher\SkyrimSELauncher\SkyrimSELauncher\bin\Release
