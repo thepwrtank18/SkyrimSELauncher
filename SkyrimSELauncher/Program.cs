@@ -12,7 +12,7 @@ namespace SkyrimSELauncher
 {
     internal static class Program
     {
-        private const decimal Version = 1.2m;
+        private const decimal Version = 1.21m;
 
         private static string _realDir = "";
         // set console color templates
@@ -302,27 +302,35 @@ namespace SkyrimSELauncher
 
         static bool CheckForUpdates()
         {
-            WebClient webClient = new WebClient();
-            string latestVersionStr =
-                webClient.DownloadString(
-                    "https://raw.githubusercontent.com/thepwrtank18/SkyrimSELauncher/master/version.txt");
-            decimal latestVersion = Convert.ToDecimal(latestVersionStr);
+            try
+            {
+                WebClient webClient = new WebClient();
+                string latestVersionStr =
+                    webClient.DownloadString(
+                        "https://raw.githubusercontent.com/thepwrtank18/SkyrimSELauncher/master/version.txt");
+                decimal latestVersion = Convert.ToDecimal(latestVersionStr);
             
-            if (latestVersion > Version)
-            {
-                HandleMessage(WarningColor, $"A new version of the launcher is available!\n         " +
-                                            $"Your version is {Version}. The latest version is {latestVersion}.\n         " +
-                                            $"You can download the latest version from https://github.com/thepwrtank18/SkyrimSELauncher/releases/tag/{latestVersionStr}");
-                return true;
+                if (latestVersion > Version)
+                {
+                    HandleMessage(WarningColor, $"A new version of the launcher is available!\n         " +
+                                                $"Your version is {Version}. The latest version is {latestVersion}.\n         " +
+                                                $"You can download the latest version from https://github.com/thepwrtank18/SkyrimSELauncher/releases/tag/{latestVersionStr}");
+                    return true;
+                }
+                else if (latestVersion < Version)
+                {
+                    HandleMessage(WarningColor, "Update check failed (newer than latest version).");
+                    return false;
+                }
+                else
+                {
+                    HandleMessage(SuccessColor, "You are running the latest version of the launcher.");
+                    return false;
+                }
             }
-            else if (latestVersion < Version)
+            catch (WebException)
             {
-                HandleMessage(WarningColor, "Update check failed (newer than latest version).");
-                return false;
-            }
-            else
-            {
-                HandleMessage(SuccessColor, "You are running the latest version of the launcher.");
+                HandleMessage(ErrorColor, "Update check failed (Failed to connect).");
                 return false;
             }
         }
