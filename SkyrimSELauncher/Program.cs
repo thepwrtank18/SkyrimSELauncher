@@ -38,6 +38,7 @@ namespace SkyrimSELauncher
         {
             try
             {
+                var message2 = "";
                 var arguments = GetStringFromList(args);
                 
                 Console.Clear();
@@ -50,7 +51,14 @@ namespace SkyrimSELauncher
                         bool CanCheckForUpdates = false;
                         if (CanCheckForUpdates)
                         {
-                            CheckForUpdates();
+                            if (CheckForUpdates())
+                            {
+                                message2 = "[6]: Update to the latest version\n         ";
+                            }
+                            else
+                            {
+                                message2 = "";
+                            }
                         }
                         else
                         {
@@ -60,7 +68,14 @@ namespace SkyrimSELauncher
                     }
                     else
                     {
-                        CheckForUpdates();
+                        if (CheckForUpdates())
+                        {
+                            message2 = "[6]: Update to the latest version\n         ";
+                        }
+                        else
+                        {
+                            message2 = "";
+                        }
                     }
                 }
                 else
@@ -87,7 +102,7 @@ namespace SkyrimSELauncher
                     if (File.Exists("SkyrimSELauncher.exe"))
                     {
                         var skyrimSettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Skyrim Special Edition";
-                        
+
                         if (arguments.Contains("-vanilla"))
                         {
                             HandleMessage(SuccessColor, "Opening Skyrim.");
@@ -147,6 +162,20 @@ namespace SkyrimSELauncher
                             }
                         }
 
+                        if (arguments.Contains("-nevergonnagiveyouupnevergonnaletyoudown")) // never gonna run around and desert you
+                        {
+                            HandleMessage(WarningColor, "Update in progress. Do not close this window.");
+                            File.Delete("SkyrimSELauncher.exe");
+                            File.Copy("SkyrimSELauncher_update.exe", "SkyrimSELauncher.exe");
+                            HandleMessage(SuccessColor, "Update complete. Restarting...");
+                            Process.Start("SkyrimSELauncher.exe");
+                            Environment.Exit(0);
+                        }
+                        else if (File.Exists("SkyrimSELauncher_update.exe"))
+                        {
+                            File.Delete("SkyrimSELauncher_update.exe");
+                        }
+                        
                         HandleMessage(SuccessColor, "Skyrim SE detected.");
                     
                         HandleMessage(SuccessColor, $"Got save directory: {skyrimSettingsPath}");
@@ -176,6 +205,7 @@ namespace SkyrimSELauncher
                                                      "[3]: View Skyrim installation folder\n         " +
                                                      "[4]: View Skyrim save/config folder\n         " +
                                                      "[5]: Exit\n         " + 
+                                                     $"{message2}" + 
                                                      "[9]: Uninstall and revert changes");
                         var defaultBkColor = Console.BackgroundColor;
                         var defaultFgColor = Console.ForegroundColor;
@@ -220,6 +250,25 @@ namespace SkyrimSELauncher
                                 HandleMessage(InfoColor, "It is now safe to close this window.");
                                 Environment.Exit(0);
                                 break;
+                            case "6":
+                                switch (message2)
+                                {
+                                    case "": // no update available
+                                        Main(args);
+                                        break;
+                                    case "[6]: Update to the latest version\n         ":
+                                        HandleMessage(WarningColor, "Update in progress. Do not close this window.");
+                                        WebClient webClient = new WebClient();
+                                        var latestVersion = webClient.DownloadString("https://raw.githubusercontent.com/thepwrtank18/SkyrimSELauncher/master/version.txt");
+                                        string cleanedLink = $"https://github.com/thepwrtank18/SkyrimSELauncher/releases/download/{latestVersion}/SkyrimSELauncher_fake.exe".Replace("\n", "").Replace("\r", "");
+                                        Console.WriteLine(cleanedLink);
+                                        webClient.DownloadFile(
+                                            cleanedLink, "SkyrimSELauncher_update.exe");
+                                        Process.Start("SkyrimSELauncher_update.exe", "-nevergonnagiveyouupnevergonnaletyoudown");
+                                        Environment.Exit(0);
+                                        break;
+                                }
+                                break;
                             case "9":
                                 Console.Clear();
                                 HandleMessage(WarningColor, "This will revert the changes done by the launcher, as if you never used it.\n         Are you sure?\n         [N]: No\n         [Y]: Yes (to prevent accidental uninstallation, press the Shift key while doing so)");
@@ -251,7 +300,7 @@ namespace SkyrimSELauncher
             }
         }
 
-        static void CheckForUpdates()
+        static bool CheckForUpdates()
         {
             WebClient webClient = new WebClient();
             string latestVersionStr =
@@ -264,14 +313,17 @@ namespace SkyrimSELauncher
                 HandleMessage(WarningColor, $"A new version of the launcher is available!\n         " +
                                             $"Your version is {Version}. The latest version is {latestVersion}.\n         " +
                                             $"You can download the latest version from https://github.com/thepwrtank18/SkyrimSELauncher/releases/tag/{latestVersionStr}");
+                return true;
             }
             else if (latestVersion < Version)
             {
                 HandleMessage(WarningColor, "Update check failed (newer than latest version).");
+                return false;
             }
             else
             {
                 HandleMessage(SuccessColor, "You are running the latest version of the launcher.");
+                return false;
             }
         }
         
@@ -312,6 +364,28 @@ namespace SkyrimSELauncher
             catch (DirectoryNotFoundException)
             {
                 HandleMessage(ErrorColor, "Directory does not exist.");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.Write("  Input:");
+                Console.ForegroundColor = defaultFgColor;
+                Console.BackgroundColor = defaultBkColor;
+                Console.Write(" ");
+                SpecifyDir(name);
+            }
+            catch (ArgumentException)
+            {
+                HandleMessage(ErrorColor, "Directory is unreadable.");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Gray;
+                Console.Write("  Input:");
+                Console.ForegroundColor = defaultFgColor;
+                Console.BackgroundColor = defaultBkColor;
+                Console.Write(" ");
+                SpecifyDir(name);
+            }
+            catch (IOException)
+            {
+                HandleMessage(ErrorColor, "Error occured reading directory.");
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Gray;
                 Console.Write("  Input:");
