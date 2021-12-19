@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.IO;
 using System.Threading;
@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace SkyrimSELauncher
 {
-    internal static class Program
+    intrnal static class Program // intentionally misspelled as a CI test
     {
         private static string _realDir = "";
         // set console color templates
