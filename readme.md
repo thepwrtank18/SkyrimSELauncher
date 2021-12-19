@@ -6,10 +6,17 @@ Allows running SKSE (and more) from Steam.
 SkyrimSELauncher is compatible with the Steam release. The BNet and Microsoft versions are untested. You are welcome to try, though.
 
 ## Installation
+### Automatic Installation
 1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs, requires GitHub account) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
 2. Run the exe, and follow the instructions.
 3. It now just replaced your original SE launcher with this one, so you can run it from Steam now.
 4. Done! You can see your options on the screen.
+### Manual Installation
+1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs, requires GitHub account) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
+2. Put the exe in Skyrim SE's directory.
+3. Rename `SkyrimSELauncher.exe` to `SkyrimSELauncher_real.exe`.
+4. Rename `SkyrimSELauncher_fake.exe` to `SkyrimSELauncher.exe`.
+5. Done!
 
 ## Command Line Usage
 `-vanilla` will start the real launcher.
