@@ -3,7 +3,7 @@
 Allows running SKSE (and more) from Steam.
 
 ## Compatibility
-SkyrimSELauncher is compatible with the Steam release. The BNet and Microsoft versions are untested.
+SkyrimSELauncher is compatible with the Steam release. The BNet and Microsoft versions are untested. You are welcome to try, though.
 
 ## Installation
 1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs, requires GitHub account) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
