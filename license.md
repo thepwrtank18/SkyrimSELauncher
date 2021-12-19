@@ -5,7 +5,7 @@ Don't claim my work as your own (if you modify it, you must say it's a modificat
 
 ## Legal version
 ### Definitions
-1. "Launcher" means the software that you are downloading from https://github.com/thepwrtank18/SkyrimSELauncher.
+1. "Launcher" means the software that you are downloading from any location that contains it.
 2. "You" means the person or entity that is downloading the software.
 3. "Mod" means any modified version of the Launcher.
 4. "Source" means the code used to create the Launcher.
