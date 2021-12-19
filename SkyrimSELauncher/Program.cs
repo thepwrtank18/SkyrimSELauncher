@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Net;
 using System.Threading;
 using System.Reflection;
 // the wall of disabled warnings
@@ -11,6 +12,8 @@ namespace SkyrimSELauncher
 {
     internal static class Program
     {
+        private const decimal Version = 1.2m;
+
         private static string _realDir = "";
         // set console color templates
         private const ConsoleColor ErrorColor = ConsoleColor.Red;
@@ -35,7 +38,35 @@ namespace SkyrimSELauncher
         {
             try
             {
+                var arguments = GetStringFromList(args);
+                
                 Console.Clear();
+
+                if (!arguments.Contains("-noupdate"))
+                {
+
+                    if (Debugger.IsAttached && !arguments.Contains("-debugupdate")) // if debugger is attached and args don't have -debugupdate
+                    {
+                        bool CanCheckForUpdates = false;
+                        if (CanCheckForUpdates)
+                        {
+                            CheckForUpdates();
+                        }
+                        else
+                        {
+                            HandleMessage(InfoColor,
+                                "Update check failed (set CanCheckForUpdates to true or add -debugupdate to enable updates)");
+                        }
+                    }
+                    else
+                    {
+                        CheckForUpdates();
+                    }
+                }
+                else
+                {
+                    HandleMessage(InfoColor, "Update check failed (opted out).");
+                }
                 var name = Path.GetFileName(Assembly.GetExecutingAssembly().Location); 
                 if (!File.Exists("SkyrimSE.exe")) // if it's not in the Skyrim SE folder
                 {
@@ -56,8 +87,7 @@ namespace SkyrimSELauncher
                     if (File.Exists("SkyrimSELauncher.exe"))
                     {
                         var skyrimSettingsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + @"\My Games\Skyrim Special Edition";
-                        var arguments = GetStringFromList(args);
-                    
+                        
                         if (arguments.Contains("-vanilla"))
                         {
                             HandleMessage(SuccessColor, "Opening Skyrim.");
@@ -221,6 +251,30 @@ namespace SkyrimSELauncher
             }
         }
 
+        static void CheckForUpdates()
+        {
+            WebClient webClient = new WebClient();
+            string latestVersionStr =
+                webClient.DownloadString(
+                    "https://raw.githubusercontent.com/thepwrtank18/SkyrimSELauncher/master/version.txt");
+            decimal latestVersion = Convert.ToDecimal(latestVersionStr);
+            
+            if (latestVersion > Version)
+            {
+                HandleMessage(WarningColor, $"A new version of the launcher is available!\n         " +
+                                            $"Your version is {Version}. The latest version is {latestVersion}.\n         " +
+                                            $"You can download the latest version from https://github.com/thepwrtank18/SkyrimSELauncher/releases/tag/{latestVersionStr}");
+            }
+            else if (latestVersion < Version)
+            {
+                HandleMessage(WarningColor, "Update check failed (newer than latest version).");
+            }
+            else
+            {
+                HandleMessage(SuccessColor, "You are running the latest version of the launcher.");
+            }
+        }
+        
         static void Uninstall(ConsoleColor defaultFgColor, ConsoleColor defaultBkColor, string[] args)
         {
             Console.ForegroundColor = ConsoleColor.Black;
