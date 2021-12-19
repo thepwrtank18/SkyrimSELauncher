@@ -1,4 +1,4 @@
-name: Build App
+name: CI and Artifacts
  
 on: [push]
  
