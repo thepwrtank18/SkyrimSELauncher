@@ -28,8 +28,9 @@ SkyrimSELauncher is compatible with the Steam release. The BNet and Microsoft ve
 `-viewconfig` will open the game's configuration folder (includes settings and save games).
 \
 `-uninstall` will uninstall the launcher, as if you never used it. Note that this requires you put `-iknowwhatimdoing` as well, as you need to know what you are doing.
-
-These can be used by right clicking on the Steam listing for Skyrim SE, go to Properties, and you should see a place to put launch options. Put one of the above in (unless you are uninstalling, then put what you need to).
+\
+`-noupdate` will disable checking for updates.
+These can be used by right clicking on the Steam listing for Skyrim SE, go to Properties, and you should see a place to put launch options. Note that the top 4 arguments will conflict eachother, so you can only use one of those 4.
 
 ## Building
 Simply open this in Visual Studio (JetBrains Rider is recommended) to edit and build the launcher.
