@@ -24,11 +24,13 @@ jobs:
     - name: Restore NuGet Packages
       run: nuget restore SkyrimSELauncher.sln
  
-    - name: Build and Publish Web App
+    - name: Build and Publish App
       run: msbuild SkyrimSELauncher.sln /p:Configuration=Release /p:DeployOnBuild=true /p:PublishProfile=FolderProfile
  
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
+      env:
+         ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
       with:
         name: SkyrimSELauncher_fake
         path: bin\Release\Publish
