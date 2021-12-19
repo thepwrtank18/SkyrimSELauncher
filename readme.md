@@ -1,6 +1,6 @@
 # Skyrim SE Launcher
  
-Allows running SKSE and game files from Steam.
+Allows running SKSE and game files from Steam (Bnet is untested).
 
 ## Installation
 1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs, requires GitHub account) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
