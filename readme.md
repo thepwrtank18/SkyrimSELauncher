@@ -1,9 +1,9 @@
-﻿# Skyrim SE Launcher
+# Skyrim SE Launcher
  
 Allows running SKSE and game files from Steam.
 
 ## Installation
-1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases).
+1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
 2. Run the exe, and follow the instructions.
 3. It now just replaced your original SE launcher with this one.
 4. Done! You can see your options on the screen.
