@@ -8,7 +8,7 @@ SkyrimSELauncher is compatible with the Steam release. The BNet and Microsoft ve
 ## Installation
 1. Download from [releases](https://github.com/thepwrtank18/SkyrimSELauncher/releases), or find a bleeding edge (may have bugs, requires GitHub account) release [here](https://github.com/thepwrtank18/SkyrimSELauncher/actions).
 2. Run the exe, and follow the instructions.
-3. It now just replaced your original SE launcher with this one.
+3. It now just replaced your original SE launcher with this one, so you can run it from Steam now.
 4. Done! You can see your options on the screen.
 
 ## Command Line Usage
